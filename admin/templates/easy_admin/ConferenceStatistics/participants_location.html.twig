@@ -1,0 +1,42 @@
+{% block conferences_participants_location %}
+    <h4><b> Participants & KPs Location </b></h4>
+    <table class="table table-bordered">
+
+        <thead style="background-color: cadetblue">
+            <tr>
+                <th style="width:200px;">Participants Location</th>
+                <th>Nb Participants</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                {% for country, nbs in participantsLocation %}
+                    <tr  style="font-weight: bold; background-color: #bcddff">
+                        <td>{{ country }}</td>
+                        <td>{{ nbs }}</td>
+                    </tr>
+                {% endfor %}
+            </tr>
+        </tbody>
+
+        <thead style="background-color: cadetblue">
+        <tr>
+            <th style="width:200px;">KPs Location</th>
+            <th>Nb KPs</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            {% for country, nbs in kpsLocation %}
+                <tr style="font-weight: bold; background-color: #bcddff">
+                    <td>{{ country }}</td>
+                    <td>{{ nbs }}</td>
+                </tr>
+            {% endfor %}
+        </tr>
+        </tbody>
+
+    </table>
+{% endblock %}

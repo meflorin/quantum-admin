@@ -1,0 +1,28 @@
+{% block users_Age_range %}
+<div>
+        <h4><b> Users Age Range </b></h4>
+        <table class="table-condensed table-bordered">
+
+            <thead style="background-color: cadetblue">
+            <tr>
+                <th style="width:200px;">Age Range</th>
+                <th>Nb Users</th>
+                <th style="text-align: center">%</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                {% for ageRange, nbs in usersAgeRange %}
+            <tr  style="font-weight: bold; background-color: #bcddff">
+                <td>{{ ageRange }}</td>
+                <td>{{ nbs }}</td>
+                <td><i><span style="color: blueviolet">{{ usersAgeRangePercent[ageRange] }}%</span></i></td>
+            </tr>
+            {% endfor %}
+            </tr>
+            </tbody>
+
+        </table>
+</div>
+{% endblock %}

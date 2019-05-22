@@ -1,0 +1,25 @@
+{% block users_type %}
+    <div>
+        <h4><b> Users Type </b></h4>
+        <table class="table-condensed table-bordered">
+
+            <thead style="background-color: cadetblue">
+            <tr>
+                <th style="width:200px;">Distinct Nb KPs</th>
+                <th>Distinct Nb Participants</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                {% for userType, nbs in totalDistinctUsersByType %}
+                    <td style="font-weight: bold; background-color: #bcddff">{{ nbs }}</td>
+                {% endfor %}
+            </tr>
+
+
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}

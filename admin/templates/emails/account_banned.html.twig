@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Frizbee</title>
+    <style>
+        .content {
+            font-family: Arial, Helvetica;
+            max-width: 600px;
+            background: #F2F2F2;
+        }
+        .header {
+            margin: 0px 48px 0px 48px;
+            padding-bottom: 24px;
+        }
+
+        .header-logo {
+            text-align: center;
+            padding: 32px 0px 24px 0px;
+        }
+
+        .header-logo img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .header-text {
+            text-align: center;
+            padding: 0px 8px 0px 8px;
+            color: #2D363D;
+        }
+
+        .header-text .title {
+            padding-bottom: 7px;
+        }
+
+        .header-text .title > img {
+            width: 20px;
+            height: 20px;
+        }
+
+
+        .middle {
+            border: 1px solid #DADAEB;
+            box-sizing: border-box;
+            border-radius: 8px;
+            text-align: center;
+            background: #FFFFFF;
+            max-width: 568px;
+            margin: 0px 16px 0px 16px;
+            padding-bottom: 8px;
+        }
+
+        .yellow-border {
+            border: 1px solid #FFD201;
+        }
+
+        .content-box {
+            max-width: 504px;
+            margin: 24px 32px 32px 32px;
+        }
+
+        .middle-logo {
+            margin: 0px 0px 16px 0px;
+        }
+
+        img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .rectangle {
+            background: #DADAEB;
+            max-width: 504px;
+            height: 1px;
+            margin: 0px 48px 0px 48px;
+        }
+
+        .rectangle-middle {
+            margin: 0px 32px 0px 32px;
+        }
+
+        .rectangle-box {
+            max-width: 568px;
+            background: #FFFFFF;
+            border: 1px solid #DADAEB;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+
+        .middle-text {
+            padding: 0px 8px 0px 8px;
+            letter-spacing: 0.4px;
+            color: #2D363D;
+        }
+
+        .title {
+            padding-bottom: 8px;
+        }
+
+        .bottom {
+            max-width: 568px;
+            margin: 24px 16px 0px 16px;
+            padding-bottom: 24px;
+        }
+
+        .button-rectangle {
+            display: flex;
+            justify-content: center;
+            height: 56px;
+            background: #1CD18B;
+            border-radius: 8px;
+        }
+
+        .button-rectangle img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .person {
+            width: 100%;
+            padding: 16px 0px 16px 32px;
+        }
+
+        .arrow {
+            width: 100%;
+            padding: 16px 32px 16px 0px;
+            text-align: right;
+        }
+
+        .text {
+            width: 100%;
+            text-align: center;
+            padding-top:14px;
+            color: #FFFFFF;
+        }
+
+        .bottom-text {
+            max-width: 504px;
+            text-align: center;
+            letter-spacing: 0.4px;
+            margin: 16px 32px 0px 32px;
+            padding: 0px 8px 0px 8px;
+            color: #2D363D;
+        }
+
+        .footer {
+            max-width: 568px;
+            text-align: center;
+            margin: 24px 16px 0px 16px;
+            padding-bottom: 31px;
+            text-align: center;
+            letter-spacing: 0.4px;
+            color: #9999AD;
+        }
+
+        .footer img {
+            width: 10px;
+            height: 10px;
+
+        }
+
+        .footer .text-box {
+            max-width: 504px;
+            margin: 0px 32px 0px 32px;
+        }
+
+        .text-box .big {
+            text-align: center;
+            padding: 0px 8px 0px 8px;
+            color: #9999AD;
+        }
+
+        .text-box .general {
+            margin-top: 8px;
+        }
+
+        .small-font {
+            font-style: normal;
+            font-weight: 500;
+            line-height: 16px;
+            font-size: 12px;
+            letter-spacing: 0.4px;
+        }
+
+        .medium-font-14 {
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            font-size: 14px;
+        }
+
+        .medium-font-16 {
+            font-style: normal;
+            font-weight: bold;
+            line-height: 22px;
+            font-size: 16px;
+        }
+
+        .title-font {
+            font-style: normal;
+            font-weight: normal;
+            line-height: 22px;
+            font-size: 22px;
+        }
+
+        .bold {
+            font-weight: bold;
+
+        }
+
+        .green {
+            color: #1CD18B;
+        }
+
+        .text-box-general {
+            max-width: 504px;
+            margin: 24px 48px 32px 48px;
+            color: #2D363D;
+            text-align: center;
+            letter-spacing: 0.4px;
+        }
+
+        .signature {
+            margin-top: 0px !important;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="content">
+
+    <div class="header">
+
+        <div class="header-logo">
+            <img src="{{ logo }}" alt="Frizbee Logo" />
+        </div>
+        <div class="header-text medium-font-14">
+            <div class="title title-font bold green">
+                We had to give you a short break <img src="{{ sad }}" alt="" />
+            </div>
+            <div>
+                Nobody’s perfect and we all make mistakes sometimes.
+            </div>
+            <div>
+                This is one of those times and we had to suspend your account, just until we hear your side of the story.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="middle">
+
+        <div class="content-box">
+            <div class="middle-text small-font" style="padding: 0px;">
+                We took this measure as your actions in Frizbee conflicted with our house rules. Please contact us at
+                <a href="#" target="_blank" style="text-decoration:none !important;">support@frizbee.app</a> to discuss why this happened and what needs to be done to make it all good again.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        <div class="text-box small-font">
+            <div class="general">
+                Don’t be a stranger!
+            </div>
+            <div class="general signature">
+                the Frizbee  <img src="{{ heart }}" alt=""  /> Bunch
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

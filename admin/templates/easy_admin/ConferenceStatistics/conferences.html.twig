@@ -1,0 +1,46 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    {% block conferences_stats %}
+        <h4><b> General Statistics </b></h4>
+        <table class="table table-condensed table-bordered">
+            <thead style="background-color: cadetblue">
+            <tr style="font-max-size: smaller">
+                <th>Total Sessions</th>
+                <th>Total Participants | <i>Avg / Session</i></th>
+                <th>Total Participants Payments (ETH) | <i>Avg / Session</i></th>
+                <th>Total Duration (hh:mm:ss) | <i>Avg / Session</i></th>
+                <th>Total KP Revenues (ETH) | <i>Avg / Session</i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-weight: bold; background-color: #bcddff">
+                <td>{{ totalConferences }}</td>
+                <td>{{ totalParticipants }} | <i>{{ averageParticipants }}</i></td>
+                <td>{{ totalParticipantsPaymentsEth }} | <i>{{ averageParticipantsPaymentsEth }}</i></td>
+                <td>{{ totalConferencesDuration }} | <i>{{ averageDuration }}</i></td>
+                <td>{{ totalKpsRevenueEth }} | <i>{{ averageKpRevenue }}</i></td>
+            </tr>
+        </table>
+
+        {% if participantsLocation|length > 0 and kpsLocation|length > 0 %}
+            {{
+                include('easy_admin/ConferenceStatistics/participants_location.html.twig', {
+                    kpsLocation: kpsLocation,
+                    participantsLocation: participantsLocation
+                })
+            }}
+        {% endif %}
+
+        {% if conferencesTimeGrid|length > 0 %}
+            {{
+                include('easy_admin/ConferenceStatistics/timegrid.html.twig', {
+                conferencesTimeGrid: conferencesTimeGrid
+                })
+            }}
+        {% endif %}
+
+    {% endblock %}
+    <br>
+    <span><u><a href="{{ referer|easyadmin_urldecode }}">Back to listings</a></u></span>
+{% endblock %}

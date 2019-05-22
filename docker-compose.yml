@@ -1,0 +1,37 @@
+version: '2'
+services:
+    php:
+        build: ./php-fpm
+        volumes:
+          - ./admin:/var/www/admin
+          - ./php-fpm/php.ini:/usr/local/etc/php/php.ini            
+        depends_on:
+          - quantum-admin-mysql
+
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
+        ports:
+          - "8001:80"
+        environment:
+          - APPLICATION_ENV=development
+          - DB_HOST=quantum-mysql
+          - DB_DBNAME=quantumd_dev
+          - DB_USERNAME=root
+          - DB_PASSWORD=devpasswd
+        volumes:
+          - ./admin:/var/www/admin
+          - ./nginx/quantum-admin.conf:/etc/nginx/conf.d/quantum-admin.conf
+        depends_on:
+          - php
+
+    quantum-admin-mysql:
+        image: mysql:5.7
+        volumes:
+          - "../quantum-admin-mysql:/var/lib/mysql"
+          - "./admin/src/Db/data/quantumd_dev.sql:/docker-entrypoint-initdb.d/quantumd_dev.sql"
+        ports:
+          - "3306:3306"
+        environment:
+          - MYSQL_ROOT_PASSWORD=devpasswd

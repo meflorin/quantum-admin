@@ -1,0 +1,25 @@
+{% block users_activity %}
+    <div>
+        <h4><b> Users Active vs Inactive </b></h4>
+        <span><b><i>* at least 1 group joined and at least 1 video session joined</i></b></span>
+        <table class="table-condensed table-bordered">
+
+            <thead style="background-color: cadetblue">
+                <tr>
+                    <th style="width:200px;">Nb Active Users</th>
+                    <th style="text-align: center">%</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    {% for key, nbs in totalActiveUsers %}
+                        <td style="font-weight: bold; background-color: #bcddff">{{ nbs }}</td>
+                        <td><b><i><span style="color: blueviolet">{{ totalActiveUsersPercent }}%</span></i></b></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+#swiftmailer:
+#    transport:        smtp
+#    username:         postmaster@sandbox7bb94ce1bc3b4c7a95c768d8d8310124.mailgun.org
+#    password:         840d944acd8cc243643b8362b3a39d61-b3780ee5-3d355a48
+#    host:             smtp.mailgun.org
+#    port:             587
+#    encryption:       ssl
+#    auth-mode:        login
+#    logging: '%kernel.debug%'
+   #url: '%env(MAILER_URL)%'
+#    spool: { type: 'memory' }
+
+#swiftmailer:
+#    default_mailer: mailer
+#    mailers:
+#        mailer:
+#            transport: smtp
+#            host:      smtp.mailgun.org
+#            username:  postmaster@sandbox7bb94ce1bc3b4c7a95c768d8d8310124.mailgun.org
+#            password:  840d944acd8cc243643b8362b3a39d61-b3780ee5-3d355a48
+#            port: 587
+#            encryption: ssl
+#            auth_mode: login
+            #url: '%env(MAILER_URL)%

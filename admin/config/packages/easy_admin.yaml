@@ -1,0 +1,337 @@
+easy_admin:
+
+    site_name: '<i>Frizbee</i>'
+
+    design:
+        brand_color: '#0000FF'
+        menu:
+            - label : 'Users'
+              children:
+                - { entity: 'User', icon: 'user', label: 'Accounts' }
+                - { entity: 'Banned', icon: 'ban' }
+                - { entity: 'Suspended', icon: 'exclamation' }
+                - { entity: 'UserStatistics', icon: '', label: 'Statistics'}
+
+            - label : 'Sessions'
+              children:
+              - { entity: 'ConferenceSessionOpen', icon: 'unlock', label: 'Open' }
+              - { entity: 'ConferenceSessionClosed', icon: 'lock', label: 'Closed' }
+              - { entity: 'ConferenceStatistics', icon: '', label: 'Statistics' }
+
+            - label : 'Groups'
+              children:
+              - { entity: 'RoomPublic', icon: 'unlock', label: 'Public' }
+              - { entity: 'RoomPrivate', icon: 'lock', label: 'Private' }
+              - { entity: 'RoomStatistics', icon: '', label: 'Statistics' }
+
+    entities:
+
+        User:
+          controller: App\Controller\UserController
+          label: 'Accounts'
+          disabled_actions: ['new']
+          class: App\Entity\User
+
+          list:
+            max_results: 10
+            title: 'Frizbee - Accounts'
+            sort: ['isSuspended', 'DESC']
+            actions:
+            - { name: 'edit', icon: 'pencil' , label: '', title: 'Edit' }
+            - { name: 'show', icon: 'search', label: '', title: 'Detailed view' }
+            - { name: 'delete', icon: 'trash', label: '', title: 'Delete account' }
+            fields:
+            - id
+            - { property: 'avatar_url', label: 'Photo', type: 'image', format: 'image', base_path: '/photos/' }
+            - { property: 'fullname', label: 'Name' }
+            - { property: 'email', label: 'Email', type: 'email' }
+            - { property: 'createdAt', label: 'Registration date' }
+            - { property: 'isPhotoValid', type: 'toggle', label: 'Valid photo' }
+            - { property: 'isSuspended', type: 'boolean', label: 'Suspend Request' }
+            - { property: 'isBanned', type: 'toggle', label: 'Banned' }
+
+
+          edit:
+            title: 'Frizbee - Accounts'
+            fields:
+            - { type: 'tab' , label: 'Profile Information', icon: 'address-card' }
+            - { property: 'fullname', label: 'Name', type_options: { required: true }}
+            - { type: 'tab' , label: 'Profile actions', icon: 'address-card' }
+            - { property: 'isSuspended', label: 'Suspend Request' }
+            - { property: 'isBanned', label: 'Banned' }
+            - { property: 'isPhotoValid', label: 'Valid photo' }
+
+
+          show:
+            title: 'Frizbee - Accounts'
+            actions:
+            - { name: '-delete' }
+            actions_moderation:
+                list: { name: 'list', type: 'method',  label: 'action.list', title: null, css_class: 'btn btn-secondary action-list', icon: null , target: '_self' }
+            fields:
+            - { property: 'id', label: 'User ID' }
+            - { property: 'avatar_url', label: 'Photo', type: 'image', format: 'image', base_path: '/photos/' }
+            - { property: 'fullname', label: 'Name' }
+            - { property: 'email', label: 'Email', type: 'email' }
+            - { property: 'ethAddress', label: 'Eth Address' }
+            - { property: 'countryCode', label: 'Country' }
+            - { property: 'isSuspended', type: 'boolean', label: 'Suspend Request' }
+            - { property: 'isBanned', type: 'boolean', label: 'Banned' }
+            - { property: 'isPhotoValid', type: 'boolean', label: 'Valid photo' }
+            - { property: 'birthDate', label: 'Date of birth', format: 'F j, Y' }
+            - { property: 'createdAt', label: 'Registration date' }
+            - { property: 'lastLogin', label: 'Last login' }
+            - { property: 'publicKey', label: 'Public Key' }
+            - { property: 'registeredFrom', label: 'Registration IP' }
+            - { property: 'accessToken', label: 'Access Token' }
+            - { property: 'lastSessionId', label: 'LastSession ID' }
+
+
+        Suspended:
+          controller: App\Controller\SuspendedController
+          label: 'Suspended'
+          disabled_actions: ['new']
+          class: App\Entity\Suspended
+
+          list:
+            title: 'Frizbee - Suspended'
+            sort: ['createdAt', 'DESC']
+
+            actions:
+            - { name: 'show', icon: 'search', label: '', title: 'Detailed view' }
+            - { name: '-delete' }
+            - { name: '-edit' }
+
+            fields:
+            - { property: 'ethAddress', label: 'Eth Address' }
+            - { property: 'createdAt', label: 'Requested at' }
+            - { property: 'updatedAt', label: 'Suspended at' }
+            - { property: 'isPending', type: 'boolean', label: 'Pending Request' }
+
+          show:
+            title: 'Frizbee - Suspended'
+            actions:
+            - { name: '-delete' }
+            - { name: '-edit' }
+            fields:
+            - { property: 'ethAddress', type_options: { disabled: true } }
+            - { property: 'actionBy', label: 'Suspended by' }
+            - { property: 'isPending', type: 'boolean', label: 'Pending Request' }
+            - { property: 'createdAt', label: 'Requested at' }
+            - { property: 'updatedAt', label: 'Suspended at' }
+
+
+        Banned:
+          controller: App\Controller\BannedController
+          label: 'Banned'
+          title: 'Frizbee - Banned'
+          disabled_actions: ['new']
+          class: App\Entity\Banned
+
+          list:
+            title: 'Frizbee - Banned'
+            sort: ['createdAt', 'DESC']
+
+            actions:
+            - { name: 'edit', icon: 'pencil' , label: '', title: 'Edit' }
+            - { name: 'show', icon: 'search', label: '', title: 'Detailed view' }
+            - { name: '-delete' }
+
+            fields:
+            - { property: 'user',  label: 'User' }
+            - { property: 'fullname', label: 'Name' }
+            - { property: 'email', type: 'email', label: 'Email' }
+            - { property: 'createdAt', label: 'Banned at' }
+            - { property: 'actionBy', label: 'Banned by' }
+
+          edit:
+            title: 'Frizbee - Banned'
+            actions:
+            - { name: '-delete' }
+            fields:
+            - { type: 'tab' , label: 'Banned Information', icon: 'user' }
+            - { property: 'userId', label: 'User ID',  type_options: { disabled: true, required: false } }
+            - { property: 'fullname', type: 'text', label: 'Name', type_options: { disabled: true, required: false } }
+            - { property: 'email', label: 'Email', type_options: { disabled: true, required: false } }
+            - { property: 'actionBy', label: 'Banned by', type_options: { disabled: true, required: false } }
+            - { property: 'createdAt', type_options: { disabled: true, , required: false }, label: 'Banned at' }
+            - { property: 'reason',  label: 'Reason' }
+
+          show:
+            title: 'Frizbee - Banned'
+            actions:
+            - { name: '-delete' }
+            fields:
+            - { property: 'user',  label: 'User' }
+            - { property: 'fullname', type: 'text', label: 'Name', type_options: { disabled: true, required: false } }
+            - { property: 'email', label: 'Email', type_options: { disabled: true, required: false } }
+            - { property: 'actionBy', label: 'Banned by', type_options: { disabled: true, required: false } }
+            - { property: 'createdAt', type_options: { disabled: true, , required: false }, label: 'Banned at' }
+            - { property: 'reason',  label: 'Reason' }
+
+        ConferenceSession:
+          controller: App\Controller\ConferenceSessionController
+          label: 'Sessions'
+          class: App\Entity\ConferenceSession
+
+        ConferenceSessionOpen:
+          controller: App\Controller\ConferenceSessionController
+          label: 'Sessions'
+          disabled_actions: ['new']
+          class: App\Entity\ConferenceSession
+          sort: ['dateAdded', 'DESC']
+
+          list:
+            dql_filter: 'entity.isOpen = 1'
+            max_results: 10
+            title: 'Frizbee - Sessions'
+            actions:
+            - { name: '-edit' }
+            - { name: '-delete' }
+            - { name: '-show' }
+
+            fields:
+            - { property: 'ref', label: 'Reference ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'owner2.email', label: 'KP' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            - { property: 'room.name', label: 'Room' }
+
+        ConferenceSessionClosed:
+          controller: App\Controller\ConferenceSessionController
+          label: 'Sessions'
+          disabled_actions: ['new']
+          class: App\Entity\ConferenceSession
+          sort: ['dateAdded', 'DESC']
+
+          list:
+            dql_filter: 'entity.isOpen = 0'
+            max_results: 10
+            title: 'Frizbee - Sessions'
+            actions:
+            - { name: '-edit' }
+            - { name: '-delete' }
+            - { name: 'show', icon: 'search', label: '', title: 'Detailed view' }
+
+            fields:
+            - { property: 'ref', label: 'Reference ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'owner2.email', label: 'KP' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            - { property: 'room.name', label: 'Room' }
+
+          show:
+            title: 'Frizbee - Sessions'
+            actions:
+            - { name: '-delete' }
+            - { name: '-edit' }
+
+            fields:
+            - { property: 'ref', label: 'Reference ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            - { property: 'owner', label: 'KP Eth address' }
+            - { property: 'owner2.email', label: 'KP email' }
+            - { property: 'hourRateDollar', label: 'Hour rate ($)' }
+            - { property: 'hourRateEth', label: 'Hour rate (ETH)' }
+            - { property: 'ethDollarConversion', label: 'Exchange (ETH/$)' }
+            - { property: 'room.name', label: 'Room' }
+            - { property: 'description', label: 'Description' }
+
+        Room:
+          controller: App\Controller\RoomController
+          label: 'Room'
+          class: App\Entity\Room
+
+        RoomPrivate:
+          controller: App\Controller\RoomController
+          label: 'Room'
+          disabled_actions: ['new']
+          class: App\Entity\Room
+          sort: ['dateAdded', 'DESC']
+
+          list:
+            dql_filter: 'entity.type = 2 AND entity.encrypted = 1'
+            max_results: 10
+            title: 'Frizbee - Groups'
+            actions:
+            - { name: '-edit' }
+            - { name: '-delete' }
+            - { name: 'show', icon: 'search', label: '', title: 'Detailed view' }
+
+            fields:
+            - { property: 'id', label: 'ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'nbRoomMembers', label: 'Nb members' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            #- { property: 'entries[0].user.email', label: 'Admin' }
+            - { property: 'admin', label: 'Admin' }
+            - { property: 'adminStatus', label: 'Admin Status' }
+            - { property: 'discoverable', label: 'Discoverable', type: 'boolean' }
+
+          show:
+            title: 'Frizbee - Private Groups'
+            actions:
+            - { name: '-delete' }
+            - { name: '-edit' }
+
+            fields:
+            - { property: 'id', label: 'ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            - { property: 'admin', label: 'Admin' }
+            - { property: 'discoverable', label: 'Discoverable', type: 'boolean' }
+            - { property: 'description', label: 'Description' }
+
+        RoomPublic:
+          controller: App\Controller\RoomController
+          label: 'Room'
+          disabled_actions: ['new']
+          class: App\Entity\Room
+
+          list:
+            dql_filter: 'entity.type = 2 AND entity.encrypted = 0 AND entity.id != 1'
+            max_results: 10
+            title: 'Frizbee - Groups'
+            actions:
+            - { name: '-edit' }
+            - { name: '-delete' }
+            - { name: 'show', icon: 'search', label: '', title: 'Detailed view' }
+
+            fields:
+            - { property: 'id', label: 'ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'nbRoomMembers', label: 'Nb members' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            - { property: 'admin', label: 'Admin' }
+            - { property: 'adminStatus', label: 'Admin Status' }
+
+          show:
+            title: 'Frizbee - Private Groups'
+            actions:
+            - { name: '-delete' }
+            - { name: '-edit' }
+            fields:
+            - { property: 'id', label: 'ID' }
+            - { property: 'name', label: 'Name' }
+            - { property: 'dateAdded', label: 'Created', format: 'F j, Y H:i:s' }
+            - { property: 'admin', label: 'Admin' }
+            - { property: 'description', label: 'Description' }
+
+        RoomStatistics:
+          controller: App\Controller\StatisticsRoomController
+          label: 'Statistics'
+          disabled_actions: ['new', 'search']
+          class: App\Entity\Room
+
+        ConferenceStatistics:
+          controller: App\Controller\StatisticsConferenceController
+          label: 'Statistics'
+          disabled_actions: ['new', 'search']
+          class: App\Entity\ConferenceSession
+
+        UserStatistics:
+          controller: App\Controller\StatisticsUserController
+          label: 'Statistics'
+          disabled_actions: ['new', 'search']
+          class: App\Entity\User

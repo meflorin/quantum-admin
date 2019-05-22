@@ -1,0 +1,40 @@
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% set _request_parameters = app.request.query.all %}
+{% set _page_list_parameters = []|merge({ entity: _request_parameters.entity, action: _request_parameters.action, menuIndex: _request_parameters.menuIndex, submenuIndex: _request_parameters.submenuIndex }) %}
+{% set _referer =  path('easyadmin',_page_list_parameters)|url_encode %}
+{% set _page_show_parameters = []|merge({ entity: _request_parameters.entity, action: 'show', referer: _referer }) %}
+{% set _action_show_href = path('easyadmin', _page_show_parameters) %}
+
+{% block main %}
+
+    <div class="table-responsive">
+        <table class="table">
+
+            <thead>
+            {% block table_head %}
+                <tr>
+                    <th class="virtual text" width="80%">
+                        <span>Available statistics</span>
+                    </th>
+                    <th width="20%">
+                        <span>Action</span>
+                    </th>
+                </tr>
+            {% endblock %}
+            </thead>
+
+            {% block table_body %}
+                <tr>
+                    <td width="80%">All statistics</td>
+                    <td width="20%" class="actions">
+                        <a  class=" action-show" title="Detailed view" href="{{ _action_show_href }}" target="_self"><i class="fa fa-search"></i>&nbsp;See Statistic Data</a>
+                    </td>
+
+                </tr>
+            {% endblock %}
+
+        </table>
+    </div>
+{% endblock %}
+

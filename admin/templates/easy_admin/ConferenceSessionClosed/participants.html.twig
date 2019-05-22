@@ -1,0 +1,56 @@
+{% block conference_history %}
+    {% set kp = participants|first %}
+    <div class="row">
+        <div class="col-xs-12">
+
+                <div class="tab-content">
+
+                        <table class="table table-striped">
+                            <thead style="background-color: gray">
+                            <tr>
+                                <th scope="col">Email (KP)</th>
+                                <th scope="col">Started Session</th>
+                                <th scope="col">Ended Session</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col"><span style="color: green"><i>IN</i></span> ETH / USD</th>
+                            </tr>
+                            </thead>
+
+                            <tr>
+                                <td width="180px">{{ kp.email }}</td>
+                                <td width="180px">{{ kp.dataStart|date('F d, Y h:i:s') }}</td>
+                                <td width="180px">{{ kp.dataEnd|date('F d, Y h:i:s') }}</td>
+                                <td width="80px">{{ kp.duration|date('H:i:s', '+00:00 GMT') }}</td>
+                                <td width="160px" style="color: green;"><span class="fa fa-arrow-right" style="color: green"></span> {{ kp.costEth }} / {{ kp.costUsd }}</td>
+                            </tr>
+
+                            <thead style="background-color: lightgray">
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col">Joined Session</th>
+                                <th scope="col">Left Session</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col"><span style="color: red"><i>OUT</i></span> ETH / USD</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for key, participant in participants|slice(1,participants|length) %}
+                                <tr>
+                                    <td width="180px">{{ participant.email }}</td>
+                                    <td width="180px">{{ participant.dataStart|date('F d, Y h:i:s') }}</td>
+                                    <td width="180px">{{ participant.dataEnd|date('F d, Y h:i:s') }}</td>
+                                    <td width="80px">{{ participant.duration|date('H:i:s', '+00:00 GMT') }}</td>
+                                    <td width="160px" style="color: red;"><span class="fa fa-arrow-left" style="color: red"></span> {{ participant.costEth }} / {{ participant.costUsd }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                </div>
+
+        </div>
+    </div>
+
+{% endblock %}

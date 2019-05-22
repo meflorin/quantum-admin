@@ -1,0 +1,70 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    <div>
+        <h4><b> General Statistics </b></h4>
+        <table class="table-condensed table-bordered">
+            <thead style="background-color: cadetblue">
+            <tr>
+                <th>Total Users</th>
+                <th style="background-color: #bcddff">{{ totalUsers }}</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+    <br />
+
+    {% block users_stats %}
+
+        {% if totalActiveUsers|length > 0 %}
+            {{
+                include('easy_admin/UserStatistics/users_activity.html.twig', {
+                    totalActiveUsers: totalActiveUsers,
+                    totalActiveUsersPercent: totalActiveUsersPercent
+                })
+            }}
+            <br />
+        {% endif %}
+
+        {% if totalDistinctUsersByType|length > 0 %}
+            {{
+                include('easy_admin/UserStatistics/users_type.html.twig', {
+                    totalDistinctUsersByType: totalDistinctUsersByType,
+                })
+            }}
+            <br />
+        {% endif %}
+
+
+        {% if usersLocation|length > 0 %}
+            {{
+                include('easy_admin/UserStatistics/users_location.html.twig', {
+                    usersLocation: usersLocation,
+                    usersLocationPercent: usersLocationPercent
+                })
+            }}
+        {% endif %}
+
+        {% if usersAge|length > 0 %}
+            {{
+                include('easy_admin/UserStatistics/users_age.html.twig', {
+                    usersAge: usersAge,
+                })
+            }}
+        {% endif %}
+
+        {% if usersAgeRange|length > 0 %}
+            {{
+                include('easy_admin/UserStatistics/users_age_range.html.twig', {
+                    usersAgeRange: usersAgeRange,
+                    usersAgeRangePercent: usersAgeRangePercent
+                })
+            }}
+        {% endif %}
+
+
+    {% endblock %}
+    <hr />
+    <span><u><a href="{{ referer|easyadmin_urldecode }}">Back to listings</a></u></span>
+{% endblock %}

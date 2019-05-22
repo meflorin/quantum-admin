@@ -1,0 +1,26 @@
+{% block users_Age %}
+    <div style="float: left; margin-right: 20px;">
+    <h4><b> Users Age </b></h4>
+    <table class="table-condensed table-bordered">
+
+        <thead style="background-color: cadetblue">
+        <tr>
+            <th>Nb Users</th>
+            <th style="width:200px;">Age</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            {% for age, nbs in usersAge %}
+        <tr style="font-weight: bold; background-color: #bcddff">
+            <td>{{ nbs }}</td>
+            <td>{{ age }}</td>
+        </tr>
+        {% endfor %}
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+{% endblock %}

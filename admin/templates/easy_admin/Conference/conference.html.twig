@@ -1,0 +1,107 @@
+{% block conference_history %}
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="nav-tabs-custom">
+
+                <!-- NAVIGATION -->
+
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#_easyadmin_form_design_element_6" id="_easyadmin_form_design_element_6-tab" data-toggle="tab">
+                            <i class="fa fa-users"></i>
+                            <span style="color: #42a1f4"><b>As KP ({{ conferencesIsKp|length }})</b></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#_easyadmin_form_design_element_7" id="_easyadmin_form_design_element_7-tab" data-toggle="tab">
+                            <i class="fa fa-user"></i>
+                            <span style="color: #726023"><b>As Participant ({{ conferencesIsNotKp|length }})</b></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <!-- SESSIONS as KP-->
+
+                    <div id="_easyadmin_form_design_element_6" class="tab-pane active">
+
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Session Id</th>
+                                <th scope="col">Session at</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col"><span style="color: green"><i>IN</i></span> ETH / USD</th>
+                                <th scope="col">Participants</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for key, conferences in conferencesIsKp %}
+                                <tr>
+                                    <td bgcolor="#42a1f4" width="115px">{{ key }}</td>
+                                    <td width="180px">{{ conferences.dataStart|date('F d, Y h:i:s') }}</td>
+                                    <td width="80px">{{ conferences.duration|date('H:i:s', '+00:00 GMT') }}</td>
+                                    <td width="160px" style="color: green;"><span class="fa fa-arrow-right" style="color: green"></span> {{ conferences.costEth }} / {{ conferences.costUsd }}</td>
+                                    <td>
+                                        {% for participant, costs in conferences.participants %}
+                                            {{ participant }} <span class="fa fa-info-circle" title="{{ costs }}"></span>
+                                            {%  if loop.last %}
+                                                {% else %} ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- SESSIONS as NOT KP-->
+                    <div id="_easyadmin_form_design_element_7" class="tab-pane">
+
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Session Id</th>
+                                <th scope="col">Session at</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col"><span style="color: red"><i>OUT</i></span> ETH / USD</th>
+                                <th scope="col">Participants</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for key, conferences in conferencesIsNotKp %}
+                                <tr>
+                                    <td bgcolor="#726023" width="115px">{{ key }}</td>
+                                    <td width="180px">{{ conferences.dataStart|date('F d, Y h:i:s') }}</td>
+                                    <td width="80px">{{ conferences.duration|date('H:i:s', '+00:00 GMT') }}</td>
+                                    <td width="160px" style="color: red;"><span class="fa fa-arrow-left" style="color: red"></span> {{ conferences.costEth }} / {{ conferences.costUsd }}</td>
+                                    <td>
+                                        {% for participant in conferences.participants %}
+                                            <span {% if conferences.kp == participant %} style="color:#42a1f4; font-weight: bold" title="Knowledge Provider" {% endif %} >{{ participant }}</span>
+                                            {%  if loop.last %}
+                                            {% else %} ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

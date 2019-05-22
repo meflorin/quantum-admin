@@ -1,0 +1,106 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    {% block room_stats %}
+            <table class="table table-striped table-bordered">
+                <thead style="background-color: cadetblue">
+                <tr>
+                    <th style="width: 200px;">All Groups</th>
+                    <th style="width: 200px;">Public Groups</th>
+                    <th style="width: 500px;">Private Groups | Discoverable + Undiscoverable</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr style="font-weight: bold">
+                    <td>{{ totalRooms }} <i><span style="color: blueviolet">(100%)</span></i></td>
+                    <td>{{ publicRooms.nbRooms }} <i><span style="color: blueviolet">({{ publicRoomsPercent }}%)</span></i></td>
+                    <td>
+                        {{ totalPrivateRooms }} <i><span style="color: blueviolet">({{ privateRoomsPercent }}%)</span></i>
+                        |
+                        {{ privateRoomsDiscoverable.nbRooms }} <i><span style="color: blueviolet">({{ privateRoomsDiscoverablePercent }}%)</span></i>
+                        +
+                        {{ privateRoomsUndiscoverable.nbRooms }} <i><span style="color: blueviolet">({{ privateRoomsUndiscoverablePercent }}%)</span></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-striped table-bordered">
+                    <thead style="background-color: lightblue">
+                    <tr>
+                        <th style="width: 200px;">Public Groups</th>
+                        <th style="width: 200px;">Total members </th>
+                        <th style="width: 500px;">Average members / group </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr style="font-weight: bold">
+                            <td>{{ publicRooms.nbRooms }}</td>
+                            <td>{{ publicRooms.nbMembers }}</td>
+                            <td>{{ publicRooms.averageNbMembers }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            <table class="table table-striped table-bordered">
+                <thead style="background-color: lightblue">
+                <tr>
+                    <th style="width: 200px;">Private Groups</th>
+                    <th style="width: 200px;">Total members </th>
+                    <th style="width: 500px;">Average members / group </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr style="font-weight: bold">
+                    <td>{{ privateRooms.nbRooms }}</td>
+                    <td>{{ privateRooms.nbMembers }}</td>
+                    <td>{{ privateRooms.averageNbMembers }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <table class="table table-striped table-bordered">
+                <thead style="background-color: lightblue">
+                <tr style="font-weight: bold">
+                    <th style="width: 200px;">Private Groups - Discoverable</th>
+                    <th style="width: 200px;">Total members </th>
+                    <th style="width: 500px;">Average members / group </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>{{ privateRoomsDiscoverable.nbRooms }}</td>
+                    <td>{{ privateRoomsDiscoverable.nbMembers }}</td>
+                    <td>{{ privateRoomsDiscoverable.averageNbMembers }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-striped table-bordered">
+                <thead style="background-color: lightblue">
+                <tr style="font-weight: bold">
+                    <th style="width: 200px;">Private Groups - Undiscoverable</th>
+                    <th style="width: 200px;">Total members </th>
+                    <th style="width: 500px;">Average members / group </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>{{ privateRoomsUndiscoverable.nbRooms }}</td>
+                    <td>{{ privateRoomsUndiscoverable.nbMembers }}</td>
+                    <td>{{ privateRoomsUndiscoverable.averageNbMembers }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+    {% endblock %}
+
+    <span><u><a href="{{ referer|easyadmin_urldecode }}">Back to listings</a></u></span>
+{% endblock %}

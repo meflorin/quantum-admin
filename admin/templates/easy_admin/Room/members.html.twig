@@ -1,0 +1,48 @@
+{% block room_members %}
+    {% set admin = members|first %}
+    <div class="row">
+        <div class="col-xs-12">
+
+                <div class="tab-content">
+
+                        <table class="table table-striped">
+                            <thead style="background-color: gray">
+                            <tr>
+                                <th scope="col">Email (Admin)</th>
+                                <th scope="col">Created Group </th>
+                            </tr>
+                            </thead>
+
+                            <tr>
+                                <td width="180px">{{ admin.user.email }}</td>
+                                <td width="180px">{{ admin.dateAdded|date('F d, Y h:i:s') }}</td>
+                            </tr>
+
+                            <thead style="background-color: lightgray">
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col">Joined Group</th>
+                                <th scope="col">Has Suspend Request</th>
+                                <th scope="col">Is Banned</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for key, member in members|slice(1,members|length) %}
+                                <tr>
+                                    <td width="180px">{{ member.user.email }}</td>
+                                    <td width="180px">{{ member.dateAdded|date('F d, Y h:i:s') }}</td>
+                                    <td width="180px"><b>{{ member.user.isSuspended == "0" ? '<span style="color: green">NO</span>' : '<span style="color: red">YES</span>' }}</b></td>
+                                    <td width="180px"><b>{{ member.user.isBanned == "0" ? '<span style="color: green">NO</span>' : '<span style="color: red">YES</span>' }}</b></td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                </div>
+
+        </div>
+    </div>
+
+{% endblock %}

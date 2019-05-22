@@ -1,0 +1,20 @@
+{% block moderation_history %}
+<table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Action</th>
+        <th scope="col">Action by</th>
+        <th scope="col">Action at</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for moderation in moderations %}
+        <tr>
+            <td>{{ moderation.action }}</td>
+            <td>{{ moderation.actionBy }}</td>
+            <td>{{ moderation.createdAt|date('F d, Y h:i:s') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
